@@ -1,0 +1,44 @@
+## ALGUMAS ANOTAÇÕES SOBRE LEITURA E VÍDEOS SOBRE PROCESSAMENTO, MULTIPROCESSING
+
+- ASYNCHRONOUS HTTP REQUESTS IN PYTHON WITH AIOHTTP AND ASYNCIO
+    --> NON-BLOCKING CODE(Código não bloqueante)/ASYNCHRONOUS/CONCURRENT: Duas principais
+    caracteristicas:
+        * São capazes de "pausar" enquanto aguardam seu resultado final para permitir
+        que outras rotinas sejam executadas nesse meio tempo;
+        * O mecanismo acima, facilita a execuções concorrentes. Em outras palavras, dá 
+        a aparência de concorrência.
+
+    Portanto, código assíncrono é código que pode travar enquanto espera por um resulta-
+    do, para permitir que outro código seja executado nesse meio tempo.
+
+    As solicitações HTTP são um exemplo clássico de algo adequado à assincronicidade
+    porque envolvem a espera de uma resposta de um servidor, durante o qual seria conven-
+    niente e eficiente ter outro código em execução.
+
+    Ex: 
+    import aiothttp
+    import asyncio
+
+    async def main():
+
+        async with aiothttp.ClientSession() as session:
+            pokemon_url = 'https://pokeapi.co/api/v2/pokemon/151'
+            async with session.get(pokemon_url) as resp:
+                pokemon = await resp.json()
+                print(pokemon['name'])
+    
+
+    asyncio.run(main()) 
+
+    => main= executando com asyncio event loop
+
+    => Foi aberto um aiothttp client session, um único objeto que pode ser usado para
+    um grande número de solicitações individuais e, por padrão, pode fazer conexões com
+    até 100 servidores diferentes ao mesmo tempo
+
+    => A palavra-chave async diz para o interpretador do Python que a corrotina que 
+    estamos definindo deve ser executada de forma assíncrona com um loop de eventos
+
+    => A palavra-chave await passa o controle de volta para o event loop, suspendendo a
+    corrotina circundante e deixando o loop de eventos executar outras coisas até o resultado
+    que está sendo "esperado" seja retornado.
