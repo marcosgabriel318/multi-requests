@@ -14,9 +14,7 @@ async def main():
             async with session.get(url) as resp:
                 pokemon = await resp.read()
                 dictionario = json.loads(pokemon)
-                minha_lista = list(dictionario['content'])
-                #super_lista += minha_lista
-                #print(print(type(list(pokemon['content']))))
+                minha_lista = list(dictionario['content']))
         print(minha_lista)
         print(type(minha_lista))
         #print(len(super_lista]))
